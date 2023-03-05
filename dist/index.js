@@ -37004,40 +37004,38 @@ async function run() {
     const octokit = github.getOctokit(token);
     const { owner, repo } = github.context.repo;
 
+    // Get the message template from the user input
+    const messageTemplate =
+      core.getInput("message", { required: false }) ||
+      ":tada: This PR is included in [${releaseName}](${releaseUrl}) :tada:";
+
     // Get the latest release
     const { data: release } = await axios.get(`https://api.github.com/repos/${owner}/${repo}/releases/latest`);
 
     // Parse the release notes to extract the pull request numbers
-    const issues = parse(release.body).issues;
-
-    // Get the message template from the user input
-    const messageTemplate =
-      core.getInput("message", { required: false }) ||
-      ":tada: This pull request was included in [${releaseName}](${releaseUrl}) :tada:";
+    const issues = parse(release.body).refs.map((ref) => ref.issue);
 
     // Post a comment on each pull request
     for (const issue of issues) {
-      if (issue.prefix === "pull") {
-        const prNumber = parseInt(issue.issue);
-        const { data: pullRequest } = await octokit.rest.pulls.get({
-          owner,
-          repo,
-          pull_number: prNumber,
-        });
-        const message = template(messageTemplate)({
-          releaseName: release.name,
-          releaseUrl: release.html_url,
-          pullRequestTitle: pullRequest.title,
-          pullRequestUrl: pullRequest.html_url,
-          pullRequestNumber: prNumber,
-        });
-        await octokit.rest.issues.createComment({
-          owner,
-          repo,
-          issue_number: prNumber,
-          body: message,
-        });
-      }
+      const prNumber = parseInt(issue);
+      const { data: pullRequest } = await octokit.rest.pulls.get({
+        owner,
+        repo,
+        pull_number: prNumber,
+      });
+      const message = template(messageTemplate)({
+        releaseName: release.name,
+        releaseUrl: release.html_url,
+        pullRequestTitle: pullRequest.title,
+        pullRequestUrl: pullRequest.html_url,
+        pullRequestNumber: prNumber,
+      });
+      await octokit.rest.issues.createComment({
+        owner,
+        repo,
+        issue_number: prNumber,
+        body: message,
+      });
     }
 
     console.log("Commented on pull requests included in release.");
