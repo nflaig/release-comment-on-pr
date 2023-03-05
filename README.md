@@ -30,7 +30,7 @@ Note that this action is triggered by the release.published event, which occurs 
 
 This action has two required inputs:
 
-- `token`: Your GitHub access token. You can use ${{ secrets.GITHUB_TOKEN }} to access the default token.
+- `token`: Your GitHub access token. You can use `${{ secrets.GITHUB_TOKEN }}` to access the default token.
 - `message`: The message to be included in the comment. This is passed to the action as a lodash template string.
   Available variables include: `releaseName`, `releaseUrl`, `pullRequestTitle`, `pullRequestUrl` and `pullRequestNumber`
 
@@ -40,7 +40,7 @@ This action does not have any outputs.
 
 ## Example
 
-Here's an example of what the comment might look like:
+Here's an example of what the comment looks like:
 
 :tada: This PR is included in [v1.0.0](https://github.com/owner/repo/releases/tag/v1.0.0) :tada:
 
