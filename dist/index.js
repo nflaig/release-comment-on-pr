@@ -30516,7 +30516,7 @@ async function run() {
     // Get the message template from the user input
     const messageTemplate =
       core.getInput("message", { required: false }) ||
-      ":tada: This PR is included in [${releaseName}](${releaseUrl}) :tada:";
+      ":tada: This PR is included in [${releaseTag}](${releaseUrl}) :tada:";
 
     const { data: release } = await octokit.rest.repos.getRelease({ owner, repo, release_id: "latest" });
 
@@ -30533,6 +30533,7 @@ async function run() {
       });
       const message = template(messageTemplate)({
         releaseName: release.name,
+        releaseTag: release.tag_name,
         releaseUrl: release.html_url,
         pullRequestTitle: pullRequest.title,
         pullRequestUrl: pullRequest.html_url,
