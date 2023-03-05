@@ -6,8 +6,8 @@ const { template } = require("lodash");
 
 async function run() {
   try {
-    const accessToken = core.getInput("access-token");
-    const octokit = new GitHub(accessToken);
+    const token = core.getInput("token");
+    const octokit = new GitHub(token);
     const { owner, repo } = context.repo;
 
     // Get the latest release
