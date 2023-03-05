@@ -20,6 +20,8 @@ jobs:
         uses: nflaig/release-comment-on-pr@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          # customize message
+          message: ":tada: This pull request was included in [${releaseName}](${releaseUrl}) :tada:" 
 ```
 
 Note that this action is triggered by the release.published event, which occurs when a new release is published in your repository.
@@ -29,6 +31,8 @@ Note that this action is triggered by the release.published event, which occurs 
 This action has two required inputs:
 
 - `token`: Your GitHub access token. You can use ${{ secrets.GITHUB_TOKEN }} to access the default token.
+- `message`The message to be included in the comment. This is passed to the action as a lodash template string.
+  Available variables include: `releaseName`, `releaseUrl`, `pullRequestTitle`, `pullRequestUrl` and `pullRequestNumber`
 
 ## Outputs
 
