@@ -36994,7 +36994,8 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(2186);
 const github = __nccwpck_require__(5438);
 const axios = __nccwpck_require__(8757);
-const parse = (__nccwpck_require__(6877).parse);
+const issueParser = __nccwpck_require__(6877);
+const parse = issueParser("github");
 const { template } = __nccwpck_require__(250);
 
 async function run() {
@@ -37011,7 +37012,8 @@ async function run() {
 
     // Get the message template from the user input
     const messageTemplate =
-      core.getInput("message") || ":tada: This pull request was included in [${releaseName}](${releaseUrl}) :tada:";
+      core.getInput("message", { required: false }) ||
+      ":tada: This pull request was included in [${releaseName}](${releaseUrl}) :tada:";
 
     // Post a comment on each pull request
     for (const issue of issues) {
