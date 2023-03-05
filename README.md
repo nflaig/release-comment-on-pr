@@ -21,7 +21,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # customize message
-          message: ":tada: This PR is included in [${releaseName}](${releaseUrl}) :tada:" 
+          message: ":tada: This PR is included in [${releaseTag}](${releaseUrl}) :tada:" 
 ```
 
 Note that this action is triggered by the release.published event, which occurs when a new release is published in your repository.
@@ -32,7 +32,7 @@ This action has two required inputs:
 
 - `token`: Your GitHub access token. You can use `${{ secrets.GITHUB_TOKEN }}` to access the default token.
 - `message`: The message to be included in the comment. This is passed to the action as a lodash template string.
-  Available variables include: `releaseName`, `releaseUrl`, `pullRequestTitle`, `pullRequestUrl` and `pullRequestNumber`
+  Available variables include: `releaseName`, `releaseTag`, `releaseUrl`, `pullRequestTitle`, `pullRequestUrl` and `pullRequestNumber`
 
 ## Outputs
 
