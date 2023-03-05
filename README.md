@@ -26,6 +26,9 @@ jobs:
 
 Note that this action is triggered by the release.published event, which occurs when a new release is published in your repository.
 
+**IMPORTANT**: `GITHUB_TOKEN` does not have the required permissions to operate on protected branches. If you are using this action for protected branches,
+replace `GITHUB_TOKEN` with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+
 ## Inputs
 
 This action has two required inputs:
