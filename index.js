@@ -1,7 +1,8 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
 const axios = require("axios");
-const parse = require("issue-parser").parse;
+const issueParser = require("issue-parser");
+const parse = issueParser("github");
 const { template } = require("lodash");
 
 async function run() {
@@ -18,7 +19,8 @@ async function run() {
 
     // Get the message template from the user input
     const messageTemplate =
-      core.getInput("message") || ":tada: This pull request was included in [${releaseName}](${releaseUrl}) :tada:";
+      core.getInput("message", { required: false }) ||
+      ":tada: This pull request was included in [${releaseName}](${releaseUrl}) :tada:";
 
     // Post a comment on each pull request
     for (const issue of issues) {
