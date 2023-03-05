@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Comment on Pull Requests
-        uses: nflaig/release-comment-on-pr@latest
+        uses: nflaig/release-comment-on-pr@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # customize message
