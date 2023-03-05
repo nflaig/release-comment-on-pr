@@ -19,11 +19,6 @@ async function run() {
     for (const issue of issues) {
       if (issue.prefix === "pull") {
         const prNumber = parseInt(issue.issue);
-        const { data: pullRequest } = await octokit.pulls.get({
-          owner,
-          repo,
-          pull_number: prNumber,
-        });
         await octokit.issues.createComment({
           owner,
           repo,
