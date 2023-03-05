@@ -1,5 +1,5 @@
 const core = require("@actions/core");
-const { GitHub, context } = require("@actions/github");
+const github = require("@actions/github");
 const axios = require("axios");
 const parse = require("issue-parser").parse;
 const { template } = require("lodash");
@@ -7,8 +7,8 @@ const { template } = require("lodash");
 async function run() {
   try {
     const token = core.getInput("token");
-    const octokit = new GitHub(token);
-    const { owner, repo } = context.repo;
+    const octokit = github.getOctokit(token);
+    const { owner, repo } = github.context.repo;
 
     // Get the latest release
     const { data: release } = await axios.get(`https://api.github.com/repos/${owner}/${repo}/releases/latest`);
@@ -24,7 +24,7 @@ async function run() {
     for (const issue of issues) {
       if (issue.prefix === "pull") {
         const prNumber = parseInt(issue.issue);
-        const { data: pullRequest } = await octokit.pulls.get({
+        const { data: pullRequest } = await octokit.rest.pulls.get({
           owner,
           repo,
           pull_number: prNumber,
@@ -36,7 +36,7 @@ async function run() {
           pullRequestUrl: pullRequest.html_url,
           pullRequestNumber: prNumber,
         });
-        await octokit.issues.createComment({
+        await octokit.rest.issues.createComment({
           owner,
           repo,
           issue_number: prNumber,
