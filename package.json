@@ -1,6 +1,6 @@
 {
   "name": "release-comment-on-pr",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "description": "Comment on Pull Requests included in Release",
   "main": "index.js",
   "scripts": {
