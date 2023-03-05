@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Comment on Pull Requests
-        uses: your-username/comment-on-release-pull-requests@v1
+        uses: nflaig/release-comment-on-pr@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           repo: owner/repo
