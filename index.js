@@ -1,6 +1,5 @@
 const core = require("@actions/core");
 const github = require("@actions/github");
-const axios = require("axios");
 const issueParser = require("issue-parser");
 const parse = issueParser("github");
 const { template } = require("lodash");
@@ -16,8 +15,7 @@ async function run() {
       core.getInput("message", { required: false }) ||
       ":tada: This PR is included in [${releaseName}](${releaseUrl}) :tada:";
 
-    // Get the latest release
-    const { data: release } = await axios.get(`https://api.github.com/repos/${owner}/${repo}/releases/latest`);
+    const { data: release } = await octokit.rest.repos.getRelease({ release_id: "latest" });
 
     // Parse the release notes to extract the pull request numbers
     const issues = parse(release.body).refs.map((ref) => ref.issue);
