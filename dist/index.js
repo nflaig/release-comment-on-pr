@@ -36992,7 +36992,7 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 const core = __nccwpck_require__(2186);
-const { GitHub, context } = __nccwpck_require__(5438);
+const github = __nccwpck_require__(5438);
 const axios = __nccwpck_require__(8757);
 const parse = (__nccwpck_require__(6877).parse);
 const { template } = __nccwpck_require__(250);
@@ -37000,8 +37000,8 @@ const { template } = __nccwpck_require__(250);
 async function run() {
   try {
     const token = core.getInput("token");
-    const octokit = new GitHub(token);
-    const { owner, repo } = context.repo;
+    const octokit = github.getOctokit(token);
+    const { owner, repo } = github.context.repo;
 
     // Get the latest release
     const { data: release } = await axios.get(`https://api.github.com/repos/${owner}/${repo}/releases/latest`);
@@ -37017,7 +37017,7 @@ async function run() {
     for (const issue of issues) {
       if (issue.prefix === "pull") {
         const prNumber = parseInt(issue.issue);
-        const { data: pullRequest } = await octokit.pulls.get({
+        const { data: pullRequest } = await octokit.rest.pulls.get({
           owner,
           repo,
           pull_number: prNumber,
@@ -37029,7 +37029,7 @@ async function run() {
           pullRequestUrl: pullRequest.html_url,
           pullRequestNumber: prNumber,
         });
-        await octokit.issues.createComment({
+        await octokit.rest.issues.createComment({
           owner,
           repo,
           issue_number: prNumber,
