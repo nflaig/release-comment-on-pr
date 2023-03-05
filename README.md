@@ -21,7 +21,7 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           # customize message
-          message: ":tada: This pull request was included in [${releaseName}](${releaseUrl}) :tada:" 
+          message: ":tada: This PR is included in [${releaseName}](${releaseUrl}) :tada:" 
 ```
 
 Note that this action is triggered by the release.published event, which occurs when a new release is published in your repository.
@@ -42,7 +42,7 @@ This action does not have any outputs.
 
 Here's an example of what the comment might look like:
 
-:tada: This pull request was included in [v1.0.0](https://github.com/owner/repo/releases/tag/v1.0.0) :tada:
+:tada: This PR is included in [v1.0.0](https://github.com/owner/repo/releases/tag/v1.0.0) :tada:
 
 ## License
 
