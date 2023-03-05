@@ -20,7 +20,6 @@ jobs:
         uses: nflaig/release-comment-on-pr@latest
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          repo: owner/repo
 ```
 
 Note that this action is triggered by the release.published event, which occurs when a new release is published in your repository.
@@ -30,7 +29,6 @@ Note that this action is triggered by the release.published event, which occurs 
 This action has two required inputs:
 
 - `token`: Your GitHub access token. You can use ${{ secrets.GITHUB_TOKEN }} to access the default token.
-- `repo`: The name of your repository, in the format owner/repo.
 
 ## Outputs
 
