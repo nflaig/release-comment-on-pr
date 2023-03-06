@@ -18,9 +18,9 @@ async function run() {
     const { data: release } = await octokit.rest.repos.getRelease({ owner, repo, release_id: "latest" });
 
     // Parse the release notes to extract the pull request numbers
-    const prNumbers = parse(release.body).refs.map((ref) => ref.issue);
+    const prNumbers = [...new Set(parse(release.body).refs.map((ref) => ref.issue))];
 
-    // Used to print out PR URLs
+    // Used to print out pull request urls
     const pullRequestUrls = [];
 
     // Post a comment on each pull request
