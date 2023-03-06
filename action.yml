@@ -1,5 +1,8 @@
 name: Comment on Pull Requests included in Release
 description: Comments on pull requests included in a GitHub release.
+branding:
+  icon: "align-justify"
+  color: "blue"
 inputs:
   token:
     description: "Personal access token with public_repo permission"

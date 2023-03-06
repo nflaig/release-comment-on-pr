@@ -48,7 +48,7 @@ async function run() {
       pullRequestUrls.push(pullRequest.html_url);
     }
 
-    console.log("Commented on pull requests included in release.");
+    console.log("Commented on pull requests included in release:");
     pullRequestUrls.forEach((url) => console.log(url));
   } catch (error) {
     console.error(error);
