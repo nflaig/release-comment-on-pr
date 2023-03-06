@@ -1,4 +1,4 @@
-# GitHub Action: Comment on Pull Requests included in Release
+# nflaig/release-comment-on-pr
 
 This GitHub Action adds a comment to all pull requests that were included in a GitHub release. The comment includes a link to the release, along with a celebratory emoji :tada:
 
