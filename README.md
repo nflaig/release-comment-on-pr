@@ -25,7 +25,7 @@ jobs:
 
 Note that this action is triggered by the `release.published` event, which occurs when a new release is published in your repository.
 
-**Important:** It is required that included PRs are referenced in the release notes, see [here](https://github.com/nflaig/test-release-comment-on-pr/releases/tag/v0.1.5) for an example.
+**Important:** It is required that included PRs are referenced in the release notes, see [example](https://github.com/nflaig/test-release-comment-on-pr/releases/tag/v0.1.5).
 
 ## Inputs
 
