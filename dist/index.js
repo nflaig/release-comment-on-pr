@@ -30523,9 +30523,12 @@ async function run() {
     // Parse the release notes to extract the pull request numbers
     const prNumbers = parse(release.body).refs.map((ref) => ref.issue);
 
+    // Used to print out PR URLs
+    const pullRequestUrls = [];
+
     // Post a comment on each pull request
-    for (const prNumStr of prNumbers) {
-      const prNumber = parseInt(prNumStr);
+    for (const prNumberStr of prNumbers) {
+      const prNumber = parseInt(prNumberStr);
       const { data: pullRequest } = await octokit.rest.pulls.get({
         owner,
         repo,
@@ -30545,9 +30548,11 @@ async function run() {
         issue_number: prNumber,
         body: message,
       });
+      pullRequestUrls.push(pullRequest.html_url);
     }
 
     console.log("Commented on pull requests included in release.");
+    pullRequestUrls.forEach(console.log);
   } catch (error) {
     console.error(error);
     core.setFailed(error.message);
