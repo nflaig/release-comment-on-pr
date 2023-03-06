@@ -30552,7 +30552,7 @@ async function run() {
     }
 
     console.log("Commented on pull requests included in release.");
-    pullRequestUrls.forEach(console.log);
+    pullRequestUrls.forEach((url) => console.log(url));
   } catch (error) {
     console.error(error);
     core.setFailed(error.message);
