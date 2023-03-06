@@ -1,10 +1,10 @@
 # GitHub Action: Comment on Pull Requests included in Release
 
-This GitHub Action adds a comment to all pull requests that were included in a GitHub release. The comment includes a link to the release, along with a celebratory emoji.
+This GitHub Action adds a comment to all pull requests that were included in a GitHub release. The comment includes a link to the release, along with a celebratory emoji :tada:
 
 ## Usage
 
-To use this action, you will need to provide your GitHub access token and the name of your repository.
+To use this action, you will need to provide your [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with `public_repo` permission.
 
 ```yaml
 name: Comment on Pull Requests included in Release
@@ -19,23 +19,21 @@ jobs:
       - name: Comment on Pull Requests
         uses: nflaig/release-comment-on-pr@v1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # customize message
-          message: ":tada: This PR is included in [${releaseTag}](${releaseUrl}) :tada:" 
+          token: ${{ secrets.ACCESS_TOKEN }}
+          message: ":tada: This PR is included in [${releaseTag}](${releaseUrl}) :tada:"
 ```
 
-Note that this action is triggered by the release.published event, which occurs when a new release is published in your repository.
+Note that this action is triggered by the `release.published` event, which occurs when a new release is published in your repository.
 
-**IMPORTANT**: `GITHUB_TOKEN` does not have the required permissions to operate on protected branches. If you are using this action for protected branches,
-replace `GITHUB_TOKEN` with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
+**Important:** It is required that included PRs are referenced in the release notes, see [here](https://github.com/nflaig/test-release-comment-on-pr/releases/tag/v0.1.5) for an example.
 
 ## Inputs
 
 This action has two required inputs:
 
-- `token`: Your GitHub access token. You can use `${{ secrets.GITHUB_TOKEN }}` to access the default token.
+- `token`: Your GitHub access token. You can use `${{ secrets.ACCESS_TOKEN }}` to access the value you set as actions repository secret.
 - `message`: The message to be included in the comment. This is passed to the action as a lodash template string.
-  Available variables include: `releaseName`, `releaseTag`, `releaseUrl`, `pullRequestTitle`, `pullRequestUrl` and `pullRequestNumber`
+  Available variables include: `releaseName`, `releaseTag`, `releaseUrl`, `pullRequestTitle`, `pullRequestUrl` and `pullRequestNumber`.
 
 ## Outputs
 

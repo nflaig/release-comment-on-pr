@@ -18,11 +18,11 @@ async function run() {
     const { data: release } = await octokit.rest.repos.getRelease({ owner, repo, release_id: "latest" });
 
     // Parse the release notes to extract the pull request numbers
-    const issues = parse(release.body).refs.map((ref) => ref.issue);
+    const prNumbers = parse(release.body).refs.map((ref) => ref.issue);
 
     // Post a comment on each pull request
-    for (const issue of issues) {
-      const prNumber = parseInt(issue);
+    for (const prNumStr of prNumbers) {
+      const prNumber = parseInt(prNumStr);
       const { data: pullRequest } = await octokit.rest.pulls.get({
         owner,
         repo,

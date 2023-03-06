@@ -2,7 +2,7 @@ name: Comment on Pull Requests included in Release
 description: Comments on pull requests included in a GitHub release.
 inputs:
   token:
-    description: "GitHub access token"
+    description: "Personal access token with public_repo permission"
     required: true
   message:
     description: "The message to be included in the comment"
