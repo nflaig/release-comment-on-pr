@@ -49,11 +49,11 @@ async function run() {
         });
         pullRequestUrls.push(pullRequest.html_url);
       } catch (error) {
-        console.error(`Failed to comment on pull request #${prNumber}`, error);
+        console.error(`Failed to comment on #${prNumber}`, error);
       }
     }
 
-    console.log("Commented on pull requests included in release:");
+    console.log("Commented on PRs included in release:");
     pullRequestUrls.forEach((url) => console.log(url));
   } catch (error) {
     console.error(error);
