@@ -30525,6 +30525,7 @@ async function run() {
 
     // Used to print out pull request urls
     const pullRequestUrls = [];
+    let failedComments = 0;
 
     // Post a comment on each pull request
     for (const prNumberStr of prNumbers) {
@@ -30553,11 +30554,16 @@ async function run() {
         pullRequestUrls.push(pullRequest.html_url);
       } catch (error) {
         console.error(`Failed to comment on #${prNumber}`, error);
+        failedComments += 1;
       }
     }
 
     console.log("Commented on PRs included in release:");
     pullRequestUrls.forEach((url) => console.log(url));
+
+    if (failedComments > 0) {
+      core.setFailed(`Failed to comment on ${failedComments} PRs`);
+    }
   } catch (error) {
     console.error(error);
     core.setFailed(error.message);
