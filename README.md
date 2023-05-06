@@ -29,10 +29,10 @@ Note that this action is triggered by the `release.published` event, which occur
 
 ## Inputs
 
-This action has two required inputs:
+This action has the following inputs:
 
-- `token`: Your GitHub access token. You can use `${{ secrets.ACCESS_TOKEN }}` to access the value you set as actions repository secret.
-- `message`: The message to be included in the comment. This is passed to the action as a lodash template string.
+- `token` (required): Your GitHub access token. You can use `${{ secrets.ACCESS_TOKEN }}` to access the value you set as actions repository secret.
+- `message` (optional): The message to be included in the comment. This is passed to the action as a lodash template string.
   Available variables include: `releaseName`, `releaseTag`, `releaseUrl`, `pullRequestTitle`, `pullRequestUrl` and `pullRequestNumber`.
 
 ## Outputs
