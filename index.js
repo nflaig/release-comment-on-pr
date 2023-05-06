@@ -26,26 +26,31 @@ async function run() {
     // Post a comment on each pull request
     for (const prNumberStr of prNumbers) {
       const prNumber = parseInt(prNumberStr);
-      const { data: pullRequest } = await octokit.rest.pulls.get({
-        owner,
-        repo,
-        pull_number: prNumber,
-      });
-      const message = template(messageTemplate)({
-        releaseName: release.name,
-        releaseTag: release.tag_name,
-        releaseUrl: release.html_url,
-        pullRequestTitle: pullRequest.title,
-        pullRequestUrl: pullRequest.html_url,
-        pullRequestNumber: prNumber,
-      });
-      await octokit.rest.issues.createComment({
-        owner,
-        repo,
-        issue_number: prNumber,
-        body: message,
-      });
-      pullRequestUrls.push(pullRequest.html_url);
+
+      try {
+        const { data: pullRequest } = await octokit.rest.pulls.get({
+          owner,
+          repo,
+          pull_number: prNumber,
+        });
+        const message = template(messageTemplate)({
+          releaseName: release.name,
+          releaseTag: release.tag_name,
+          releaseUrl: release.html_url,
+          pullRequestTitle: pullRequest.title,
+          pullRequestUrl: pullRequest.html_url,
+          pullRequestNumber: prNumber,
+        });
+        await octokit.rest.issues.createComment({
+          owner,
+          repo,
+          issue_number: prNumber,
+          body: message,
+        });
+        pullRequestUrls.push(pullRequest.html_url);
+      } catch (error) {
+        console.error(`Failed to comment on pull request #${prNumber}`, error);
+      }
     }
 
     console.log("Commented on pull requests included in release:");
