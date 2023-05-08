@@ -30531,6 +30531,9 @@ async function run() {
     for (const prNumberStr of prNumbers) {
       const prNumber = parseInt(prNumberStr);
 
+      // let's be a bit more friendly to the GitHub API
+      await new Promise((resolve) => setTimeout(resolve, 100));
+
       try {
         const { data: pullRequest } = await octokit.rest.pulls.get({
           owner,
