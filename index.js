@@ -29,7 +29,7 @@ async function run() {
       const prNumber = parseInt(prNumberStr);
 
       // let's be a bit more friendly to the GitHub API
-      await new Promise((resolve) => setTimeout(resolve, 100));
+      await new Promise((resolve) => setTimeout(resolve, 250));
 
       try {
         const { data: pullRequest } = await octokit.rest.pulls.get({
